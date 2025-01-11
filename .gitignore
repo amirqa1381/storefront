@@ -1,0 +1,80 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+db.sqlite3
+
+# Environment variables and secrets
+.env
+*.env
+
+# Static and media files (if managed outside of source control)
+staticfiles/
+media/
+
+# Local settings (if separate local settings files are used)
+settings_local.py
+
+# Test coverage
+htmlcov/
+.coverage
+.tox/
+.cache
+.nox/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# VS Code and other IDEs
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Pipfile and pipenv
+Pipfile.lock
+
+# Node.js (if using npm/yarn for frontend)
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Celery beat schedule file
+celerybeat-schedule
+
+# Gunicorn PID file
+gunicorn.pid
