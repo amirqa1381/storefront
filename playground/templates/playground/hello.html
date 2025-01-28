@@ -1,5 +1,13 @@
 <html>
     <body>
-        <h2>this is the new look of my app</h2>
+        {% comment %} <ul>
+            {% for order in orders %}
+            <li>{{order.id}} -- {{order.customer.first_name}}</li>
+            {% endfor %}
+        </ul> {% endcomment %}
+        <h4>{{result}}</h4>
+        <h4>{{product1_sold_price}}</h4>
+        <h4>{{customer_placed}}</h4>
+        <h4>{{collection}}</h4>
     </body>
 </html>
