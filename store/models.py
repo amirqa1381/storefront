@@ -12,6 +12,11 @@ class Collection(models.Model):
     featured_product = models.ForeignKey(
         'Product', on_delete=models.SET_NULL, null=True, related_name='+')
 
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['title']
 
 class Product(models.Model):
     title = models.CharField(max_length=255)
@@ -22,6 +27,12 @@ class Product(models.Model):
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
     promotions = models.ManyToManyField(Promotion)
     slug = models.SlugField()
+    
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['title']
     
     
 class Customer(models.Model):
