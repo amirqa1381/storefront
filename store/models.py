@@ -54,6 +54,10 @@ class Customer(models.Model):
     membership = models.CharField(max_length=1, choices=MEMBERSHIP_CHOICES, default=MEMBERSHIP_BRONZE)
     
     
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+    
+    
     
 class Order(models.Model):
     PAYMENT_PENDING = 'P'
@@ -67,6 +71,8 @@ class Order(models.Model):
     placed_at = models.DateTimeField(auto_now_add=True)
     payment_status = models.CharField(max_length=1, choices=PAYMENT_STATUS_CHOICES, default=PAYMENT_PENDING)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    
+
     
     
 class OrderItem(models.Model):
