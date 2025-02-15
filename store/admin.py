@@ -25,20 +25,34 @@ class CustomInventoryFilter(admin.SimpleListFilter):
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
+    prepopulated_fields = {
+        'slug': ['title']
+    }
+    autocomplete_fields = ['collection']
+    actions = ["clear_inventory"]
     list_display = ['title', 'unit_price', 'inventory_status', 'collection_title']
     list_editable = ['unit_price']
     list_filter = ['collection', 'last_update', CustomInventoryFilter]
     ordering = ['inventory']
     list_per_page = 20
     list_select_related = ['collection']
+    search_fields = ['title__istartswith']
+    
     
     def collection_title(self, product):
         return product.collection.title
+    
     
     def inventory_status(self, product):
         if product.inventory < 10:
             return "LOW"
         return "OK"
+    
+    
+    @admin.action(description="Clear inventory")
+    def clear_inventory(self, request, queryset):
+        updated_count = queryset.update(inventory=0)
+        self.message_user(request, f"{updated_count} products were successfully updated")
     
 
 
@@ -61,22 +75,30 @@ class CustomerAdmin(admin.ModelAdmin):
 
 
 
+class OrderItemInline(admin.TabularInline):
+    autocomplete_fields = ['product']
+    model = models.OrderItem
+    extra = 0
+
+
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['customer']
+    inlines = [OrderItemInline]
     list_display = ['placed_at', 'payment_status', 'customer_name']
     list_editable = ['payment_status']
     list_select_related = ['customer']
     
     
     def customer_name(self, order):
-        return order.customer.full_name()
+        return order.customer
 
 
 @admin.register(models.Collection)
 class CollectionAdmin(admin.ModelAdmin):
     list_display = ['title', 'products_count']
-    
+    search_fields = ['title']
     
     @admin.display(ordering='products_count')
     def products_count(self, collection):
